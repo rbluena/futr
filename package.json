@@ -11,7 +11,7 @@
     "lint:fix": "npx eslint --fix .",
     "format": "prettier --write .",
     "validate-fail": "npm run format && npm lint-staged",
-    "validate": "npm run format && npm run lint:fix",
+    "validate": "npm run lint:fix",
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "prepare": "husky",

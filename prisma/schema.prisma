@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,14 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model Profile {
-  id          String @id @default(uuid())
-  name        String
-  description String
-  owner       User   @relation("UserHasProfile", fields: [username], references: [username])
-  username    String @unique
 }
 
 model User {
@@ -27,8 +16,8 @@ model User {
   lastname  String
   image     String?
   email     String
-  posts     Link[]
-  profile   Profile? @relation("UserHasProfile")
+  password  String
+  links     Link[]   @relation("UserHasLinks")
 }
 
 model Link {
@@ -38,10 +27,10 @@ model Link {
   slug        String   @unique
   title       String
   description String?
-  mediaUrl    String?
+  media       String?
   published   Boolean  @default(false)
   role        Role?    @default(USER)
-  author      User     @relation(fields: [authorId], references: [id])
+  author      User     @relation("UserHasLinks", fields: [authorId], references: [id])
   authorId    String
 }
 
