@@ -10,24 +10,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        BigInt @id @default(autoincrement())
-  username  String @unique
-  firstname String
-  lastname  String
-  email     String
-  posts     Post[]
+model Profile {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  owner       User   @relation("UserHasProfile", fields: [username], references: [username])
+  username    String @unique
 }
 
-model Post {
-  id          BigInt  @id @default(autoincrement())
-  slug        String  @unique
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+  firstname String
+  lastname  String
+  image     String?
+  email     String
+  posts     Link[]
+  profile   Profile? @relation("UserHasProfile")
+}
+
+model Link {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  slug        String   @unique
   title       String
-  description String
-  published   Boolean @default(false)
-  role        Role?   @default(USER)
-  author      User    @relation(fields: [authorId], references: [id])
-  authorId    BigInt
+  description String?
+  mediaUrl    String?
+  published   Boolean  @default(false)
+  role        Role?    @default(USER)
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
 }
 
 enum Role {
