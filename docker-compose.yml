@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  db:
+    container_name: "gyph_db"
+    image: postgres
+    restart: always
+    ports:
+      - "54320:5432"
+    # volumes:
+    #   - ./pgdata:var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgress
+      - POSTGRES_DB=link_db
