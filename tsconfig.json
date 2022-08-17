@@ -16,7 +16,10 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
+      "@app/app/*": ["app/*"],
       "@app/lib/*": ["lib/*"],
+      "@app/utils/*": ["utils/*"],
+      "@app/services/*": ["services/*"],
       "@app/components/*": ["components/*"],
       "@app/styles/*": ["styles/*"],
       "@app/prisma/*": ["prisma/*"],
